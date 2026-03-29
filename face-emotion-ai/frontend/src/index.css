@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg:      #020810;
+  --panel:   #050e1a;
+  --border:  #0a2040;
+  --accent:  #00d4ff;
+  --accent2: #ff3d6e;
+  --accent3: #00ff9d;
+  --dim:     #2a4a6a;
+  --text:    #a8d4f5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Animated grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridPan 25s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes gridPan {
+  from { background-position: 0 0; }
+  to   { background-position: 40px 40px; }
+}
+
+@keyframes scanLine {
+  0%   { top: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes pulseGlow {
+  0%,100% { box-shadow: 0 0 10px rgba(0,212,255,0.3); }
+  50%      { box-shadow: 0 0 30px rgba(0,212,255,0.8); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.4s ease forwards; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--panel); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--dim); }
+
+/* Corner bracket util */
+.bracket-box {
+  position: relative;
+}
+.bracket-box::before, .bracket-box::after,
+.bracket-box .br-tr::before, .bracket-box .br-bl::before {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  pointer-events: none;
+  z-index: 10;
+}
+.bracket-box::before {
+  top: 6px; left: 6px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
+}
+.bracket-box::after {
+  bottom: 6px; right: 6px;
+  border-bottom: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+}
+
+.glow-text {
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(0,212,255,0.6);
+}
+
+.glow-text-red {
+  color: var(--accent2);
+  text-shadow: 0 0 20px rgba(255,61,110,0.6);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+}
+
+.panel-title {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--dim);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cyber-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cyber-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateX(-100%);
+  transition: transform 0.2s;
+  z-index: -1;
+}
+.cyber-btn:hover::before { transform: translateX(0); }
+.cyber-btn:hover { color: var(--bg); box-shadow: 0 0 20px rgba(0,212,255,0.4); }
+.cyber-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.cyber-btn:disabled:hover::before { transform: translateX(-100%); }
+.cyber-btn:disabled:hover { color: var(--accent); box-shadow: none; }
+
+.cyber-btn.danger { border-color: var(--accent2); color: var(--accent2); }
+.cyber-btn.danger::before { background: var(--accent2); }
+.cyber-btn.danger:hover { color: var(--bg); box-shadow: 0 0 20px rgba(255,61,110,0.4); }
+
+.cyber-btn.success { border-color: var(--accent3); color: var(--accent3); }
+.cyber-btn.success::before { background: var(--accent3); }
+.cyber-btn.success:hover { color: var(--bg); box-shadow: 0 0 20px rgba(0,255,157,0.4); }
