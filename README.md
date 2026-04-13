@@ -299,11 +299,6 @@ All processing is **100% local** on your machine:
 - No images or video are sent to any external server
 - Only emotion labels and confidence scores are saved to your local SQLite database
 
----
-
-## 📜 License
-
-This project is licensed under the **MIT License** — free to use, modify, and distribute.
 
 ---
 
