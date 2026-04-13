@@ -312,6 +312,7 @@ All processing is **100% local** on your machine:
 ---
 
 <div align="center">
+  Developed by **Vishnu Badiger**
   <strong>Built with ❤️ using FastAPI + React + DeepFace + WebSocket</strong>
 </div>
 [README (3).md](https://github.com/user-attachments/files/26327528/README.3.md)
